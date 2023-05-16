@@ -14,28 +14,28 @@
 ## 实际效果
 ### 前台
 #### 1.主界面
-<img width="1512" alt="image" src="https://github.com/ccnice-wp/musicWebsite/assets/61896753/f7af5c8a-a6ac-4172-b9c7-3b73d3737a4d">
+<img width="1512" alt="image" src="https://github.com/ccnice-wp/viteMusic/assets/61896753/c915a06f-8d6d-48db-92f7-2be90194e1ed">
 
 #### 2.音乐检索
-<img width="1510" alt="image" src="https://github.com/ccnice-wp/musicWebsite/assets/61896753/da9afb3f-72e8-4060-9b83-939a396fef7e">
+<img width="1511" alt="image" src="https://github.com/ccnice-wp/viteMusic/assets/61896753/54c87112-5a6c-43bd-bb81-fda84f73a5f3">
 
 #### 3.登录注册
-<img width="1510" alt="image" src="https://github.com/ccnice-wp/musicWebsite/assets/61896753/3b4fcd55-e7d1-450b-b707-aca8d7f8e2e9">
+<img width="1512" alt="image" src="https://github.com/ccnice-wp/viteMusic/assets/61896753/e4a9fc85-37d1-49f9-95d3-24e522e5d54d">
 
 #### 4.侧栏歌单歌曲列表
-<img width="1507" alt="image" src="https://github.com/ccnice-wp/musicWebsite/assets/61896753/d3ca1078-79ce-444a-963e-8b4db842dd15">
+<img width="1508" alt="image" src="https://github.com/ccnice-wp/viteMusic/assets/61896753/6678e23e-b1a1-48a9-84a4-af2fec0bf449">
 
 ### 后台
 #### 1.信息统计
-<img width="1512" alt="image" src="https://github.com/ccnice-wp/musicWebsite/assets/61896753/6eee093e-d511-467c-8614-b26eeeca6aae">
+<img width="1510" alt="image" src="https://github.com/ccnice-wp/viteMusic/assets/61896753/8ca98105-24da-42e1-9f68-ca72b8bc1fb6">
 
 #### 2.歌手管理
-<img width="1512" alt="image" src="https://github.com/ccnice-wp/musicWebsite/assets/61896753/1617167e-d138-49b6-a664-d2e90b902ad2">
+<img width="1512" alt="image" src="https://github.com/ccnice-wp/viteMusic/assets/61896753/898f4753-d71e-4e09-97e0-fbab4f91e230">
 
 #### 3.歌曲管理
-<img width="1512" alt="image" src="https://github.com/ccnice-wp/musicWebsite/assets/61896753/4e0b43b3-b7f0-4eef-a8ed-200f0ad175b8">
+<img width="1511" alt="image" src="https://github.com/ccnice-wp/viteMusic/assets/61896753/a02ffcdd-84cf-406b-97a5-997dda971f01">
 
 #### 4.歌单管理
-<img width="1512" alt="image" src="https://github.com/ccnice-wp/musicWebsite/assets/61896753/b0627eda-915a-4e55-a03e-3326a2fed362">
+<img width="1509" alt="image" src="https://github.com/ccnice-wp/viteMusic/assets/61896753/5414e44c-275a-4833-a82d-2c593f6e007f">
 
 
