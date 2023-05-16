@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.example.musicserver.dao.SingerMapper">
+
+<!--增加歌手信息-->
+    <insert id="insert" parameterType="com.example.musicserver.entity.Singer">
+        insert into singer(singer_id, name, gender, photo, birth, location, introduction, created_time)
+            values (#{singerId,jdbcType=VARCHAR},
+                    #{name,jdbcType=VARCHAR},
+                    #{gender,jdbcType=VARCHAR},
+                    #{photo,jdbcType=VARCHAR},
+                    #{birth,jdbcType=VARCHAR},
+                    #{location,jdbcType=VARCHAR},
+                    #{introduction,jdbcType=VARCHAR},
+                    #{createdTime,jdbcType=VARCHAR})
+    </insert>
+
+<!--    更新歌手信息-->
+    <update id="updateSingerByPrimaryKey" parameterType="com.example.musicserver.entity.Singer">
+        update singer
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null">
+                gender = #{gender,jdbcType=VARCHAR},
+            </if>
+            <if test="photo != null">
+                photo = #{photo,jdbcType=VARCHAR},
+            </if>
+            <if test="birth != null">
+                birth = #{birth,jdbcType=VARCHAR},
+            </if>
+            <if test="location != null">
+                location = #{location,jdbcType=VARCHAR},
+            </if>
+            <if test="introduction != null">
+                introduction = #{introduction,jdbcType=VARCHAR},
+            </if>
+        </set>
+            where singer_id = #{singerId,jdbcType=VARCHAR}
+    </update>
+
+<!--    删除歌手信息-->
+    <delete id="deleteSingerByPrimaryKey" parameterType="java.lang.String">
+        delete from singer where singer_id = #{singerId}
+    </delete>
+
+<!--    查询歌手信息-->
+    <select id="selectSinger" resultType="com.example.musicserver.entity.Singer">
+        select * from singer
+        <where>
+            <if test="singerId != null">
+               and singer_id = #{singerId,jdbcType=VARCHAR}
+            </if>
+            <if test="name != null">
+                and LOWER(name) like concat('%',#{name,jdbcType=VARCHAR},'%')
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.example.musicserver.dao.UserDataMapper">
+
+
+<!--    增加用户-->
+    <insert id="insert" parameterType="com.example.musicserver.entity.UserData">
+        insert into user_data(user_id, name, password, gender, birth, location, photo, introduction, created_time, update_time)
+            values (#{userId,jdbcType=VARCHAR},
+                    #{name,jdbcType=VARCHAR},
+                    #{password,jdbcType=VARCHAR},
+                    #{gender,jdbcType=VARCHAR},
+                    #{birth,jdbcType=VARCHAR},
+                    #{location,jdbcType=VARCHAR},
+                    #{photo,jdbcType=VARCHAR},
+                    #{introduction,jdbcType=VARCHAR},
+                    #{createdTime,jdbcType=VARCHAR},
+                    #{updateTime,jdbcType=VARCHAR})
+    </insert>
+
+<!--    更新用户-->
+    <update id="updateByPrimaryKey" parameterType="com.example.musicserver.entity.UserData">
+        update user_data
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null">
+                gender = #{gender,jdbcType=VARCHAR},
+            </if>
+            <if test="photo != null">
+                photo = #{photo,jdbcType=VARCHAR},
+            </if>
+            <if test="birth != null">
+                birth = #{birth,jdbcType=VARCHAR},
+            </if>
+            <if test="location != null">
+                location = #{location,jdbcType=VARCHAR},
+            </if>
+            <if test="introduction != null">
+                introduction = #{introduction,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where user_id = #{userId,jdbcType=VARCHAR}
+    </update>
+
+<!--    根据主键ID删除用户-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from user_data where user_id = #{userId,jdbcType=VARCHAR}
+    </delete>
+
+<!--    查找用户-->
+    <select id="selectUserData" resultType="com.example.musicserver.entity.UserData">
+        select user_id, name, gender, birth, location, photo, introduction from user_data
+        <where>
+            <if test="name != null">
+                and name = #{name,jdbcType=VARCHAR}
+            </if>
+            <if test="password != null">
+                and password = #{password,jdbcType=VARCHAR}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+<!--    验证用户名和密码-->
+    <select id="verifyUserPassword" resultType="java.lang.Integer">
+        select count(*) from user_data where name = #{name,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
+    </select>
+
+<!--    查看该用户名是否已被注册-->
+    <select id="verifyUserName" resultType="java.lang.Integer">
+        select count(*) from user_data where name = #{name,jdbcType=VARCHAR}
+    </select>
+</mapper>

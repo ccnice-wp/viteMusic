@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.example.musicserver.dao.AdminMapper">
+    
+    <resultMap id="UserResultMap" type="com.example.musicserver.entity.UserData">
+        <result property="totalUsers" column="total_users" />
+        <result property="recentUsers" column="recent_users" />
+    </resultMap>
+
+<!--    增加admin用户-->
+    <insert id="insert" parameterType="com.example.musicserver.entity.Admin">
+         insert into admin(admin_id,name,password) values (#{adminId,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR})
+    </insert>
+<!--    根据主键更新admin信息-->
+    <update id="updateByPrimaryKey" parameterType="com.example.musicserver.entity.Admin">
+        update admin set name = #{name,jdbcType=VARCHAR},
+                         password = #{password,jdbcType=VARCHAR}
+        where admin_id = #{adminId,jdbcType=VARCHAR}
+    </update>
+
+
+    <!--    根据主键删除admin信息-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from admin where admin_id = #{adminId,jdbcType=VARCHAR}
+    </delete>
+
+    <!--    查询全部admin用户-->
+    <select id="queryAll" resultType="com.example.musicserver.entity.Admin">
+        select * from music.admin
+    </select>
+
+<!--    根据主键查询admin信息-->
+    <select id="selectByPrimaryKey" resultType="com.example.musicserver.entity.Admin">
+        select admin_id as adminId,name,password
+            from admin
+            where admin_id = #{adminId,jdbcType=VARCHAR}
+    </select>
+
+<!--    验证密码-->
+    <select id="verifyPassword" resultType="java.lang.Integer">
+        select count(*) from admin where name = #{name} and password = #{password}
+    </select>
+
+<!--    查询所有的注册用户总数和近一个注册用户数-->
+    <select id="selectUserCount" resultType="com.example.musicserver.entity.UserData">
+        SELECT COUNT(*) AS total_users,
+               COUNT(CASE WHEN STR_TO_DATE( created_time, '%a %b %d %H:%i:%s CST %Y' ) >= DATE_SUB(NOW(), INTERVAL 1 MONTH) THEN 1 END) AS recent_users
+        FROM user_data;
+    </select>
+<!--    查询男女人数与未写明性别人数-->
+    <select id="selectGenderCounter" resultType="com.example.musicserver.entity.UserData">
+        SELECT gender, COUNT(*) AS gender_count FROM user_data GROUP BY gender;
+    </select>
+
+<!--    查询播放前十的歌曲数量与次数-->
+    <select id="selectPlayNum" resultType="com.example.musicserver.entity.Song">
+        SELECT `name`, photo from song ORDER BY photo desc LIMIT  10
+    </select>
+
+</mapper>

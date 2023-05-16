@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.example.musicserver.dao.CommentMapper">
+    <insert id="insert" parameterType="com.example.musicserver.entity.Comment">
+        insert into comment(comment_id, user_id, song_id, song_list_id, content, stars, type, created_time)
+            values (#{commentId,jdbcType=VARCHAR},
+                    #{userId,jdbcType=VARCHAR},
+                    #{songId,jdbcType=VARCHAR},
+                    #{songListId,jdbcType=VARCHAR},
+                    #{content,jdbcType=VARCHAR},
+                    #{stars,jdbcType=INTEGER},
+                    #{type,jdbcType=VARCHAR},
+                    #{createdTime,jdbcType=VARCHAR})
+    </insert>
+
+    <!--    根据主键ID删除评论-->
+    <delete id="deletePrimaryKey" parameterType="java.lang.String">
+        delete from comment where comment_id = #{commentId}
+    </delete>
+
+    <!--    根据主键查询ID-->
+    <select id="selectByPrimaryKey" resultType="com.example.musicserver.entity.Comment">
+        select comment_id as commentId, user_id as userId, song_id as songId, song_list_id as songListId, content, stars, type, created_time as createdTime
+            from comment
+            where comment_id = #{commentId}
+    </select>
+
+<!--    根据歌曲ID查询评论-->
+    <select id="commentOfSongId" resultType="com.example.musicserver.entity.Comment">
+        select * from comment
+            where song_id = #{songId,jdbcType=VARCHAR}
+    </select>
+
+<!--    根据歌单ID查询评论-->
+    <select id="commentOfSongListId" resultType="com.example.musicserver.entity.Comment">
+        select * from comment
+            where song_list_id = #{songListId,jdbcType=VARCHAR}
+    </select>
+
+<!--    查询评论-->
+    <select id="selectCommentList" resultType="com.example.musicserver.entity.Comment">
+        select * from comment
+        <where>
+            <if test="commentId != null">
+                and comment_id = #{commentId,jdbcType=VARCHAR}
+            </if>
+        </where>
+        <where>
+            <if test="userId != null">
+                and user_id = #{userId,jdbcType=VARCHAR}
+            </if>
+        </where>
+        <where>
+            <if test="songId != null">
+                and song_id = #{songId,jdbcType=VARCHAR}
+            </if>
+        </where>
+        <where>
+            <if test="songListId != null">
+                and song_list_id = #{songListId,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

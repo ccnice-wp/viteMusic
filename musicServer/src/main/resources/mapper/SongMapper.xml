@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.example.musicserver.dao.SongMapper">
+
+
+<!--    增加歌曲信息-->
+    <insert id="insert" parameterType="com.example.musicserver.entity.Song">
+        insert into song(song_id, singer_id, name, album, lyric, url, photo, created_time, update_time)
+            values (#{songId,jdbcType=VARCHAR},
+                    #{singerId,jdbcType=VARCHAR},
+                    #{name,jdbcType=VARCHAR},
+                    #{album,jdbcType=VARCHAR},
+                    #{lyric,jdbcType=VARCHAR},
+                    #{url,jdbcType=VARCHAR},
+                    #{photo,jdbcType=VARCHAR},
+                    #{createdTime,jdbcType=VARCHAR},
+                    #{updateTime,jdbcType=VARCHAR})
+    </insert>
+
+<!--    更新歌曲信息-->
+    <update id="updateByPrimaryKey" parameterType="com.example.musicserver.entity.Song">
+        update song
+        <set>
+            <if test="singerId != null">
+                singer_id = #{singerId,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="album != null">
+                album = #{album,jdbcType=VARCHAR},
+            </if>
+            <if test="photo != null">
+                photo = #{photo,jdbcType=VARCHAR},
+            </if>
+            <if test="lyric != null">
+                lyric = #{lyric,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where song_id = #{songId,jdbcType=VARCHAR}
+    </update>
+
+<!--    删除歌曲-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from song where song_id = #{songId,jdbcType=VARCHAR}
+    </delete>
+
+<!--    查询歌曲-->
+    <select id="selectSong" resultType="com.example.musicserver.entity.Song">
+        select  s2.NAME singer,
+                    s1.song_id songId,
+                    s1.NAME name,
+                    s1.album album,
+                    s1.lyric lyric,
+                    s1.url url,
+                    s1.photo photo
+        from song as s1 join singer s2 on s1.singer_id = s2.singer_id
+        <where>
+            <if test="songId != null">
+                and s1.song_id = #{songId,jdbcType=VARCHAR}
+            </if>
+            <if test="name != null">
+                and LOWER(s1.name) like concat('%',#{name,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="singerId != null">
+                and s1.singer_id = #{singerId,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+<!--    根据photo中的数来排名乐曲的排名次数-->
+    <select id="selectSongOrderByPhoto" resultType="com.example.musicserver.entity.Song">
+        select  s2.NAME singer,
+        s1.song_id songId,
+        s1.NAME name,
+        s1.album album,
+        s1.lyric lyric,
+        s1.url url
+        from song as s1 join singer s2 on s1.singer_id = s2.singer_id
+        where s1.photo != '' order by  s1.photo desc, s1.song_id  limit 10
+    </select>
+</mapper>

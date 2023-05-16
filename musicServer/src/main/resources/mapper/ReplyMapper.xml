@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.example.musicserver.dao.ReplyMapper">
+
+
+<!--    增加回复评论-->
+    <insert id="insert" parameterType="com.example.musicserver.entity.Reply">
+        insert into reply(reply_id, comment_id, user_id, content, created_time)
+            values (#{replyId,jdbcType=VARCHAR},
+                    #{commentId,jdbcType=VARCHAR},
+                    #{userId,jdbcType=VARCHAR},
+                    #{content,jdbcType=VARCHAR},
+                    #{createdTime,jdbcType=VARCHAR})
+    </insert>
+
+<!--    删除回复评论-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from reply where reply_id = #{replyId,jdbcType=VARCHAR}
+    </delete>
+
+<!--    根据评论ID查询回复评论-->
+    <select id="selectReplyByCommentId" resultType="com.example.musicserver.entity.Reply">
+        select * from reply
+            where comment_id = #{commentId,jdbcType=VARCHAR}
+    </select>
+</mapper>
